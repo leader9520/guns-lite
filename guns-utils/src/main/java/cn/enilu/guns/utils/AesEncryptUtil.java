@@ -127,14 +127,17 @@ public class AesEncryptUtil {
 		String test = new String(test1.getBytes(), "UTF-8");
 		String data = null;
 		String key = KEY;
-		key="21232F297A57A5A743894A0E4A801FC3";
+		key="D41B8265807CE33038DF2B3F7AA9FB10".substring(0,16);
+		//用户登录:Jl2aaw6q5GLNun4bM8RwRA==,密码:
+		System.out.println(key.length());
+		System.out.println(key);
 		String iv = IV;
 		// /g2wzfqvMOeazgtsUVbq1kmJawROa6mcRAzwG1/GeJ4=
 		//VdQz57xg7IBtcmef+3ddlA==
 		data = encrypt(test, key, iv);
 		System.out.println("数据：" + test);
 		System.out.println("加密：" + data);
-		String jiemi = desEncrypt(data, key, iv).trim();
+		String jiemi = desEncrypt("Jl2aaw6q5GLNun4bM8RwRA==", key, iv).trim();
 		System.out.println("解密：" + jiemi);
 
 		System.out.println(MD5.getMD5String("1234"));

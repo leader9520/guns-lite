@@ -9,7 +9,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="新密码" prop="password">
-              <el-input type="password" v-model="form.password"  minlength=5  ></el-input>
+              <el-input type="password" v-model="form.password"  minlength=4  ></el-input>
             </el-form-item>
           </el-col>
 
