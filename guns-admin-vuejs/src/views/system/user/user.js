@@ -4,6 +4,7 @@ import { parseTime } from '@/utils/index'
 import { roleTreeListByIdUser } from '@/api/system/role'
 // 权限判断指令
 import permission from '@/directive/permission/index.js'
+import { Md5 } from '@/utils/cryptojs'
 
 export default {
   directives: { permission },
@@ -181,6 +182,8 @@ export default {
             }
             form.birthday = parseTime(form.birthday, '{y}-{m}-{d}')
             form.createtime = parseTime(form.createtime)
+            form.password = Md5(form.password)
+            form.rePassword = Md5(form.rePassword)
             saveUser(form).then(response => {
               this.$message({
                 message: '提交成功',

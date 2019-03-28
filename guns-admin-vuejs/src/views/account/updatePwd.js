@@ -1,4 +1,5 @@
 import { updatePwd } from '@/api/login'
+import { Md5 } from '@/utils/cryptojs'
 
 export default {
   data() {
@@ -26,9 +27,9 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           updatePwd({
-            oldPassword: this.form.oldPassword,
-            password: this.form.password,
-            rePassword: this.form.rePassword
+            oldPassword: Md5(this.form.oldPassword),
+            password: Md5(this.form.password),
+            rePassword: Md5(this.form.rePassword)
           }).then(response => {
             console.log(response)
             this.$message({

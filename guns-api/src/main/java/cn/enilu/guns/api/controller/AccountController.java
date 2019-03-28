@@ -63,17 +63,37 @@ public class AccountController extends BaseController{
                         @RequestParam("password") String password){
         try {
             logger.info("用户登录:" + userName + ",密码:" + password);
+        	userName = AesEncryptUtil.desEncrypt(userName, password.substring(0, 16)).trim();
+			logger.info("用户登录:" + userName + ",\t MD5密码:" + password);
             //1,
             User user = userRepository.findByAccount(userName);
             if (user == null) {
                 return Rets.failure("该用户不存在");
             }
             String password2 = MD5.md5(password, user.getSalt());
+            logger.info("用户登录:" + userName + ",\t 加盐密码:" + password2);
             //2,
             if (!user.getPassword().equals(password2)) {
                 return Rets.failure("输入的密码错误");
             }
+            String err = null;
+			switch (user.getStatus()) {
+			case 1:
 
+				break;
+			case 2:
+				err = "账户已冻结";
+				break;
+			case 3:
+				err = "账户已删除";
+				break;
+
+			default:
+				break;
+			}
+			if (null != err) {
+				return Rets.failure(err);
+			}
             String token = accountService.login(Long.valueOf(user.getId()));
             Map<String, String> result = new HashMap<>(1);
             logger.info("token:{}",token);
